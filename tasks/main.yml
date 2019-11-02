@@ -1,0 +1,72 @@
+---
+
+#- name: Add apt-key
+#  become: true
+#  apt_key:
+#     url: "{{ repo_key }}"
+#     state: present
+#  when: ansible_distribution == 'Ubuntu'
+
+#- name: Add  repository
+#  become: true
+#  apt_repository:
+#    repo: '{{ repo_url }}'
+#    state: present
+#  when: ansible_distribution == 'Ubuntu'
+- name: Exporting vars
+  become: true
+  #shell: echo "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+  lineinfile:
+    path: /etc/apt/sources.list.d/google-cloud-sdk.list
+    regexp: '^deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main'
+    line: 'deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main'
+    create: yes
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Exporting vars
+  become: true
+  shell:  sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Exporting vars
+  become: true
+  shell: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+  when: ansible_distribution == 'Ubuntu'
+
+
+- debug:
+    msg: "{{ ansible_distribution_release }}"
+
+- name: Installing packages
+  become: true
+  apt:
+    update_cache: yes
+    pkg: "{{ item }}"
+    state: latest
+  with_items: "{{software_packages}}"
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Insert/Update "Match User" configuration block in /etc/ssh/sshd_config
+  become: true
+  blockinfile:
+    path: /etc/yum.repos.d/google-cloud-sdk.repo
+    create: yes
+    block: |
+      [google-cloud-sdk]
+      name=Google Cloud SDK
+      baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=1
+      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+             https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+  when: ansible_distribution == 'CentOS'
+
+- name: Installing packages
+  become: true
+  yum:
+    pkg: "{{ item }}"
+    update_cache: yes
+    state: latest
+  with_items: "{{ software_packages }}"
+  when: ansible_distribution == 'CentOS'
