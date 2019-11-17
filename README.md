@@ -1,22 +1,40 @@
-software_docker
+software_gcloud
 =========
 
-A brief description of the role goes here.
+This role will install software_gcloud software
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+All dependencies will appear on requirements.yml file
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+software_packages:
+  - google-cloud-sdk
+  - google-cloud-sdk-app-engine-grpc
+  - google-cloud-sdk-pubsub-emulator
+  - google-cloud-sdk-app-engine-go
+  - google-cloud-sdk-cloud-build-local
+  - google-cloud-sdk-datastore-emulator
+  - google-cloud-sdk-app-engine-python
+  - google-cloud-sdk-cbt
+  - google-cloud-sdk-bigtable-emulator
+  - google-cloud-sdk-app-engine-python-extras
+  - google-cloud-sdk-datalab
+  - google-cloud-sdk-app-engine-java
+
+
+repo_url: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' # chrome repository
+repo_key: 'https://dl-ssl.google.com/linux/linux_signing_key.pub' # chrome key
+
+Not defined yet. But in the future we could stage software version in here
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+All dependencies will appear on requirements.yml file
 
 Example Playbook
 ----------------
@@ -25,7 +43,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: xussof.software_gcloud }
 
 License
 -------
@@ -34,24 +52,4 @@ BSD
 
 Author Information
 ------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
-software_docker
+Made by @xussof
