@@ -1,0 +1,10 @@
+#ansible-playbook test-playbook.yml --extra-vars "ansible_become_pass=sudo_pass"
+#To run without installing software dependencies
+#ansible-playbook test-playbook.yml --extra-vars "ansible_become_pass=sudo_pass" --skip-tags "software"
+- hosts: localhost
+
+  tasks:
+
+    - name: Including role to test
+      include_role:
+        name: '../software_gcloud'

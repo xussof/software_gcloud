@@ -1,55 +1,62 @@
-software_gcloud
+# software_gcloud
 =========
 
 This role will install software_gcloud software
 
-Requirements
+## Requirements
 ------------
 
 All dependencies will appear on requirements.yml file
 
-Role Variables
+## Role Variables
 --------------
 
-software_packages:
-  - google-cloud-sdk
-  - google-cloud-sdk-app-engine-grpc
-  - google-cloud-sdk-pubsub-emulator
-  - google-cloud-sdk-app-engine-go
-  - google-cloud-sdk-cloud-build-local
-  - google-cloud-sdk-datastore-emulator
-  - google-cloud-sdk-app-engine-python
-  - google-cloud-sdk-cbt
-  - google-cloud-sdk-bigtable-emulator
-  - google-cloud-sdk-app-engine-python-extras
-  - google-cloud-sdk-datalab
-  - google-cloud-sdk-app-engine-java
+    software_packages:
+      - google-cloud-sdk
+      - google-cloud-sdk-app-engine-grpc
+      - google-cloud-sdk-pubsub-emulator
+      - google-cloud-sdk-app-engine-go
+      - google-cloud-sdk-cloud-build-local
+      - google-cloud-sdk-datastore-emulator
+      - google-cloud-sdk-app-engine-python
+      - google-cloud-sdk-cbt
+      - google-cloud-sdk-bigtable-emulator
+      - google-cloud-sdk-app-engine-python-extras
+      - google-cloud-sdk-datalab
+      - google-cloud-sdk-app-engine-java
 
 
-repo_url: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' # chrome repository
-repo_key: 'https://dl-ssl.google.com/linux/linux_signing_key.pub' # chrome key
+    repo_url: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' # chrome repository
+    repo_key: 'https://dl-ssl.google.com/linux/linux_signing_key.pub' # chrome key
 
 Not defined yet. But in the future we could stage software version in here
 
-Dependencies
+## Dependencies
 ------------
 
 All dependencies will appear on requirements.yml file
 
-Example Playbook
+## Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: xussof.software_gcloud }
+    #ansible-playbook test-playbook.yml --extra-vars "ansible_become_pass={{ sudo_pass }}"
+    #To run without installing software dependencies
+    #ansible-playbook test-playbook.yml --extra-vars "ansible_become_pass={{ sudo_pass }}" --skip-tags "software"
 
-License
+    - hosts: localhost
+
+      tasks:
+        - name: Including role to test
+          include_role:
+            name: '../software_gcloud'
+
+## License
 -------
 
 BSD
 
-Author Information
+## Author Information
 ------------------
-Made by @xussof
+Made by @sergi-canas
